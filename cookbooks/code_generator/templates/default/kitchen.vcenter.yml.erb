@@ -1,0 +1,35 @@
+---
+driver:
+  name: vcenter
+  vcenter_username: 'administrator@vsphere.local'
+  vcenter_password: 'Good4bye!'
+  vcenter_host: '172.16.20.2'
+  vcenter_disable_ssl_verify: true
+
+provisioner:
+  name: chef_zero
+  sudo_command: sudo
+
+verifier:
+  name: inspec
+
+transport:
+  username: "admini"
+  password: admini
+
+platforms:
+  - name: ubuntu-1604
+    driver_config:
+      targethost: 172.16.20.3
+      template: ubuntu16-template
+      datacenter: "Datacenter"
+  - name: centos-7
+    driver_config:
+      targethost: 172.16.20.3
+      template: centos7-template
+      datacenter: "Datacenter"
+
+suites:
+  - name: default
+run_list:
+  - recipe[<%= cookbook_name %>::default]
